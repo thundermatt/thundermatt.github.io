@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buon Compleanno, Mucca!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Evita lo scroll */
+            color: #fff;
+            background: linear-gradient(90deg, #4b0082, #000080);
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-top: 20px;
+            background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+            background-size: 400% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbowAnimation 5s linear infinite;
+        }
+
+        @keyframes rainbowAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .gift-box {
+            width: 150px;
+            height: 150px;
+            background-color: #1e90ff; /* Blu per la scatola */
+            margin: 50px auto;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.1);
+        }
+
+        /* Nastri bianchi */
+        .gift-box::before,
+        .gift-box::after {
+            content: '';
+            position: absolute;
+            background-color: #ffffff; /* Bianco per i nastri */
+            border-radius: 5px;
+        }
+
+        /* Nastro verticale */
+        .gift-box::before {
+            width: 20px;
+            height: 100%;
+            top: 0;
+            left: calc(50% - 10px);
+        }
+
+        /* Nastro orizzontale */
+        .gift-box::after {
+            width: 100%;
+            height: 20px;
+            top: calc(50% - 10px);
+            left: 0;
+        }
+
+        .gift-content {
+            display: none;
+            margin-top: 20px;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .celebration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .celebration img {
+            width: 100px;
+            height: auto;
+        }
+
+        .celebration h2 {
+            font-size: 2rem;
+            color: #ffcccb;
+        }
+
+        .polish-cow {
+            position: absolute;
+            width: 150px;
+            height: auto;
+            opacity: 0.8;
+        }
+
+        @keyframes moveCow {
+            0% {
+                left: -200px;
+            }
+            100% {
+                left: 100vw;
+            }
+        }
+
+        .balloon {
+            position: absolute;
+            width: 50px;
+            height: auto;
+            opacity: 0.9;
+        }
+
+        @keyframes flyBalloon {
+            0% {
+                top: 100%;
+            }
+            100% {
+                top: -100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Apri il tuo regalo, Mucca!</h1>
+    <div class="gift-box" id="giftBox" onclick="openGift()"></div>
+    <div class="gift-content" id="giftContent">
+        <div class="celebration">
+    <img src="polishcow.gif" alt="Polish Cow Ballando">
+    <h2>Buon Compleanno, Mucca! 🎉 Sei una persona speciale e voglio che tu sappia quanto io ti voglia bene!<br> Spero che quest'anno tutto andrà per il meglio e che ti arrivino dei regali decenti :) <br> miraccomando non muggire troppo che poi ti fa male la gola <3</h2>
+    <img src="polishcow.gif" alt="Polish Cow Ballando">
+</div>
+
+    </div>
+
+    <audio id="birthdayMusic" src="compleanno.mp3" preload="auto"></audio>
+
+<script>
+    function openGift() {
+        const giftBox = document.getElementById('giftBox');
+        const giftContent = document.getElementById('giftContent');
+        const birthdayMusic = document.getElementById('birthdayMusic');
+
+        giftBox.style.display = 'none';
+        giftContent.style.display = 'block';
+        birthdayMusic.play();
+
+        // Inizia lo spawn alternato di mucche e palloncini
+        setTimeout(addPolishCows, 6000);
+        setTimeout(addBalloons, 6000);
+    }
+
+    function addPolishCows() {
+        const body = document.body;
+
+        setInterval(() => {
+            // Genera una mucca per ciclo
+            const cow = document.createElement('img');
+            cow.src = "polishcow.gif";
+            cow.className = "polish-cow";
+
+            // Posiziona la mucca in una posizione verticale casuale
+            const posizioneVerticale = Math.random() * window.innerHeight;
+            cow.style.top = `${posizioneVerticale}px`;
+            cow.style.left = `-200px`; // Parte a sinistra dello schermo
+
+            // Aggiungi animazione di movimento
+            cow.style.animation = "moveCow 8s linear forwards";
+
+            // Aggiungi mucca al body
+            body.appendChild(cow);
+
+            // Rimuovi la mucca una volta terminata l'animazione
+            setTimeout(() => {
+                body.removeChild(cow);
+            }, 8000);
+        }, 1000); // Genera una nuova mucca ogni secondo
+    }
+
+    function addBalloons() {
+        const body = document.body;
+        const balloonImages = [
+            "palloncino.png",
+            "palloncino2.png",
+            "palloncino3.png",
+            "palloncino4.png",
+            "palloncino5.png"
+        ];
+        let currentImageIndex = 0; // Tiene traccia del palloncino da utilizzare
+
+        setInterval(() => {
+            // Genera un palloncino per ciclo
+            const balloon = document.createElement('img');
+            balloon.src = balloonImages[currentImageIndex];
+            balloon.className = "balloon";
+
+            // Passa al prossimo palloncino (ciclico)
+            currentImageIndex = (currentImageIndex + 1) % balloonImages.length;
+
+            // Posiziona il palloncino in una posizione orizzontale casuale
+            const posizioneOrizzontale = Math.random() * window.innerWidth;
+            balloon.style.left = `${posizioneOrizzontale}px`;
+            balloon.style.top = `100%`; // Parte dal basso dello schermo
+
+            // Aggiungi animazione di movimento
+            balloon.style.animation = "flyBalloon 6s linear forwards";
+
+            // Aggiungi palloncino al body
+            body.appendChild(balloon);
+
+            // Rimuovi il palloncino una volta terminata l'animazione
+            setTimeout(() => {
+                body.removeChild(balloon);
+            }, 6000);
+        }, 750); // Genera un nuovo palloncino ogni 750ms
+    }
+</script>
+</body>
+</html>
